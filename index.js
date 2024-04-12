@@ -40,16 +40,32 @@ app.get('/alunos', async (req, res) => {
   res.json(alunos);
 });
 
+// Rota para obter um aluno específico
+app.get('/alunos/:RA', async (req, res) => {
+  const aluno = await Aluno.findOne({ RA: req.params.RA }).select('-_id -__v');
+  if (!aluno) {
+    return res.status(404).json({ message: 'Aluno não encontrado' });
+  }
+  aluno.data_de_nascimento = aluno.data_de_nascimento.toISOString().split('T')[0];
+  res.json(aluno);
+});
+
 // Rota para atualizar um aluno
 app.put('/alunos/:RA', async (req, res) => {
   const aluno = await Aluno.findOneAndUpdate({ RA: req.params.RA }, req.body, { new: true });
+  if (!aluno) {
+    return res.status(404).json({ message: 'Aluno não encontrado' });
+  }
   res.json(aluno);
 });
 
 // Rota para remover um aluno
 app.delete('/alunos/:RA', async (req, res) => {
   const aluno = await Aluno.findOneAndDelete({ RA: req.params.RA });
-  res.json(aluno);
+  if (!aluno) {
+    return res.status(404).json({ message: 'Aluno não encontrado' });
+  }
+  res.json({ message: 'Aluno removido com sucesso' });
 });
 
 // Inicie o servidor
