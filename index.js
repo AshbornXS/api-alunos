@@ -26,7 +26,7 @@ const Aluno = mongoose.model('Aluno', new mongoose.Schema({
 // Rota para criar um novo aluno
 app.post('/alunos', async (req, res) => {
   const aluno = await Aluno.create(req.body);
-  res.json(aluno);
+  res.status(201).json({ message: 'Aluno criado com sucesso'});
 });
 
 // Rota para obter todos os alunos
