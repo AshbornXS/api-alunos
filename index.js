@@ -23,12 +23,6 @@ const Aluno = mongoose.model('Aluno', new mongoose.Schema({
   data_de_nascimento: Date
 }));
 
-// Rota para criar um novo aluno
-app.post('/alunos', async (req, res) => {
-  const aluno = await Aluno.create(req.body);
-  res.status(201).json({ message: 'Aluno criado com sucesso'});
-});
-
 // Rota para obter todos os alunos
 app.get('/alunos', async (req, res) => {
   let alunos = await Aluno.find().select('-_id -__v');
@@ -49,6 +43,15 @@ app.get('/alunos/:RA', async (req, res) => {
   aluno = aluno.toObject();
   aluno.data_de_nascimento = aluno.data_de_nascimento.toISOString().split('T')[0];
   res.json(aluno);
+});
+
+// Rota para criar um novo aluno
+app.post('/alunos', async (req, res) => {
+  const aluno = await Aluno.create(req.body);
+  if (!aluno) {
+    return res.status(404).json({ message: 'Falha ao adicionar aluno' });
+  }
+  res.status(201).json({ message: 'Aluno adicionado com sucesso'});
 });
 
 // Rota para atualizar um aluno
