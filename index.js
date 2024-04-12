@@ -42,10 +42,11 @@ app.get('/alunos', async (req, res) => {
 
 // Rota para obter um aluno específico
 app.get('/alunos/:RA', async (req, res) => {
-  const aluno = await Aluno.findOne({ RA: req.params.RA }).select('-_id -__v');
+  let aluno = await Aluno.findOne({ RA: req.params.RA }).select('-_id -__v');
   if (!aluno) {
     return res.status(404).json({ message: 'Aluno não encontrado' });
   }
+  aluno = aluno.toObject();
   aluno.data_de_nascimento = aluno.data_de_nascimento.toISOString().split('T')[0];
   res.json(aluno);
 });
