@@ -38,7 +38,7 @@ app.get('/alunos', async (req, res) => {
 app.get('/alunos/:RA', async (req, res) => {
   let aluno = await Aluno.findOne({ RA: req.params.RA }).select('-_id -__v');
   if (!aluno) {
-    return res.status(404).json({ message: 'Aluno não encontrado' });
+    return res.status(404).json({ status: 'Aluno não encontrado' });
   }
   aluno = aluno.toObject();
   aluno.data_de_nascimento = aluno.data_de_nascimento.toISOString().split('T')[0];
@@ -49,27 +49,27 @@ app.get('/alunos/:RA', async (req, res) => {
 app.post('/alunos', async (req, res) => {
   const aluno = await Aluno.create(req.body);
   if (!aluno) {
-    return res.status(404).json({ message: 'Falha ao adicionar aluno' });
+    return res.status(404).json({ status: 'Falha ao adicionar aluno' });
   }
-  res.status(201).json({ message: 'Aluno adicionado com sucesso'});
+  res.status(201).json({ status: 'Aluno adicionado com sucesso'});
 });
 
 // Rota para atualizar um aluno
 app.patch('/alunos/:RA', async (req, res) => {
   const aluno = await Aluno.findOneAndUpdate({ RA: req.params.RA }, req.body, { new: true });
   if (!aluno) {
-    return res.status(404).json({ message: 'Aluno não encontrado' });
+    return res.status(404).json({ status: 'Aluno não encontrado' });
   }
-  res.json({ message: 'Aluno atualizado com sucesso' });
+  res.json({ status: 'Aluno atualizado com sucesso' });
 });
 
 // Rota para remover um aluno
 app.delete('/alunos/:RA', async (req, res) => {
   const aluno = await Aluno.findOneAndDelete({ RA: req.params.RA });
   if (!aluno) {
-    return res.status(404).json({ message: 'Aluno não encontrado' });
+    return res.status(404).json({ status: 'Aluno não encontrado' });
   }
-  res.json({ message: 'Aluno removido com sucesso' });
+  res.json({ status: 'Aluno removido com sucesso' });
 });
 
 // Inicie o servidor
