@@ -52,12 +52,12 @@ app.get('/alunos/:RA', async (req, res) => {
 });
 
 // Rota para atualizar um aluno
-app.put('/alunos/:RA', async (req, res) => {
+app.patch('/alunos/:RA', async (req, res) => {
   const aluno = await Aluno.findOneAndUpdate({ RA: req.params.RA }, req.body, { new: true });
   if (!aluno) {
     return res.status(404).json({ message: 'Aluno não encontrado' });
   }
-  res.json(aluno);
+  res.json({ message: 'Aluno atualizado com sucesso' });
 });
 
 // Rota para remover um aluno
