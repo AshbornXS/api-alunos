@@ -2,6 +2,10 @@
 
 Esta é uma API para gerenciar informações de alunos.
 
+## URL da API
+
+https://api-alunos-fatec.vercel.app/alunos
+
 ## Funcionalidades
 
 - Listar todos os alunos
