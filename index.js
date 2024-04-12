@@ -35,7 +35,7 @@ app.get('/alunos', async (req, res) => {
 });
 
 // Rota para obter um aluno específico
-app.get('/alunos/:RA', async (req, res) => {
+app.get('/aluno/:RA', async (req, res) => {
   let aluno = await Aluno.findOne({ RA: req.params.RA }).select('-_id -__v');
   if (!aluno) {
     return res.status(404).json({ status: 'Aluno não encontrado' });
@@ -46,7 +46,7 @@ app.get('/alunos/:RA', async (req, res) => {
 });
 
 // Rota para criar um novo aluno
-app.post('/alunos', async (req, res) => {
+app.post('/aluno', async (req, res) => {
   const aluno = await Aluno.create(req.body);
   if (!aluno) {
     return res.status(404).json({ status: 'Falha ao adicionar aluno' });
@@ -55,7 +55,7 @@ app.post('/alunos', async (req, res) => {
 });
 
 // Rota para atualizar um aluno
-app.patch('/alunos/:RA', async (req, res) => {
+app.patch('/aluno/:RA', async (req, res) => {
   const aluno = await Aluno.findOneAndUpdate({ RA: req.params.RA }, req.body, { new: true });
   if (!aluno) {
     return res.status(404).json({ status: 'Aluno não encontrado' });
@@ -64,7 +64,7 @@ app.patch('/alunos/:RA', async (req, res) => {
 });
 
 // Rota para remover um aluno
-app.delete('/alunos/:RA', async (req, res) => {
+app.delete('/aluno/:RA', async (req, res) => {
   const aluno = await Aluno.findOneAndDelete({ RA: req.params.RA });
   if (!aluno) {
     return res.status(404).json({ status: 'Aluno não encontrado' });
