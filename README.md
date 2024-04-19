@@ -2,6 +2,17 @@
 
 Esta é uma API para gerenciar informações de alunos.
 
+## Membros do grupo
+
+- Pedro Alves
+- Liz
+- Ariel
+- Wyllerson
+- Jhennyfer
+- Bianca
+- Beatriz Vitória
+- Giovane
+
 ## URL da API
 
 https://api-alunos-fatec.vercel.app/alunos
